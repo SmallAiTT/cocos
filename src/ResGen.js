@@ -12,6 +12,7 @@ function ResGen(dirCfgList, outputPath){
     this.fileTypes = [];
     this.projDir;
     this.startStr;
+    this.resPre = "";;
 
     this._walkDir = function(dir, pre){
         if(!fs.existsSync(dir)) {
@@ -67,7 +68,7 @@ function ResGen(dirCfgList, outputPath){
         var fws = fs.createWriteStream(outputPath);
         fws.write(this.startStr + "{\r\n");
         for(var i = 0, l = _resArr.length; i < l; ++i){
-            fws.write("    " + _resKeyArr[i] + " : '" + _resArr[i] + "'");
+            fws.write("    " + _resKeyArr[i] + " : '" + this.resPre + _resArr[i] + "'");
             if(i < l - 1) fws.write(",");
             fws.write("\r\n");
         }

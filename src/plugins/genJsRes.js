@@ -16,6 +16,7 @@ function gen(projDir, opts){
     resGen.fileTypes = cfg4JsRes.fileTypes;
     resGen.startStr = "var js_" + cocosInfo.name + " = ";
     resGen.projDir = projDir;
+    resGen.resPre = "[%" + cocosInfo.name + "%]"
     resGen.gen();
 };
 module.exports = gen;
