@@ -27,9 +27,9 @@ function mergeDependencies(modulesDir, dependencies, jsToMergeArr){
         var dependency = dependencies[i];
         var moduleName = dependency.name;
         var pInfo = require(path.join(modulesDir, moduleName, "cocos.json"));
-        mergeDependencies(core4cc.getDependencies(modulesDir, pInfo.dependences, jsToMergeArr));
-        if(mergeCache4Dependencies[itemi]) continue;
-        mergeCache4Dependencies[itemi] = true;
+        mergeDependencies(modulesDir, core4cc.getDependencies(pInfo.dependences), jsToMergeArr);
+        if(mergeCache4Dependencies[dependency]) continue;
+        mergeCache4Dependencies[dependency] = true;
         jsToMergeArr.push(path.join(modulesDir, moduleName, cfgDir, "jsRes.js"));
         jsToMergeArr.push(path.join(modulesDir, moduleName, cfgDir, "resCfg.js"));
     }
@@ -206,8 +206,9 @@ function miniJs(jsArr){
         if(results && results.length > 0){
             var moduleName = results[0].substring(2, results[0].length - 2);
             var dir = moduleName == "core" ? ccDir : modulesDir;
-            dir += moduleName;
+            dir = path.join(dir, moduleName);
             if(moduleName == projName) dir = projDir;
+            dir = path.normalize(dir + "/");
             var jsPath = itemi.replace(/\[\%[\w_\d]+\%\]/, dir);
 //            console.log(path.normalize(jsPath));
             execCode += path.normalize(jsPath) + " "
