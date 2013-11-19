@@ -1,0 +1,7 @@
+{
+    "name": "cocos",
+    "version": "0.0.1",
+    "bin" : "./bin/cocos.js",
+    "dependencies": {
+    }
+}
