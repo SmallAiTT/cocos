@@ -37,7 +37,7 @@ self.getOpts = function(){
     var args4Func = [];
     var i = 1, li = arr.length
     for(; i < li; i++){
-        var itemi = arr[i];
+        var itemi = arr[i].toLowerCase();;
         if(cfgMap[itemi] == null) args4Func.push(itemi);
         else break;
     }
@@ -46,15 +46,8 @@ self.getOpts = function(){
     var name = null;
     for(; i < li; i++){
         var itemi = arr[i].toLowerCase();
-        if(i == li - 1){
-            if(name && cfgMap[itemi]) opts[cfgMap[itemi].name] = args;
-            else if(name && !cfgMap[itemi]) {
-                args.push(itemi);
-                opts[cfgMap[itemi].name] = args;
-            }else if(cfgMap[itemi]){
-                opts[cfgMap[itemi].name] = [];
-            }
-        }else if(cfgMap[itemi]){
+        console.log(itemi);
+        if(cfgMap[itemi]){
             if(name == null && args.length > 0) throw "command error!";
             if(name == null) {
                 name = cfgMap[itemi].name;
@@ -69,8 +62,10 @@ self.getOpts = function(){
         }
     }
 
+    if(name) opts[name] = args;
+
     opts[KEY.TEMP_NAME] = opts[KEY.TEMP_NAME] || ["project"];
-    opts[KEY.CC_DIR] = opts[KEY.CC_DIR] || ["../cocos/"]
+    opts[KEY.CC_DIR] = opts[KEY.CC_DIR] || ["cocos"]
 
     opts[KEY.TEMP_NAME] = opts[KEY.TEMP_NAME][0];
     opts[KEY.CC_DIR] = opts[KEY.CC_DIR][0];
