@@ -27,9 +27,9 @@ function mergeDependencies(modulesDir, dependencies, jsToMergeArr){
         var dependency = dependencies[i];
         var moduleName = dependency.name;
         var pInfo = require(path.join(modulesDir, moduleName, "cocos.json"));
-        mergeDependencies(modulesDir, core4cc.getDependencies(pInfo.dependences), jsToMergeArr);
-        if(mergeCache4Dependencies[dependency]) continue;
-        mergeCache4Dependencies[dependency] = true;
+        mergeDependencies(modulesDir, core4cc.getDependencies(pInfo.dependencies), jsToMergeArr);
+        if(mergeCache4Dependencies[moduleName]) continue;
+        mergeCache4Dependencies[moduleName] = true;
         jsToMergeArr.push(path.join(modulesDir, moduleName, cfgDir, "jsRes.js"));
         jsToMergeArr.push(path.join(modulesDir, moduleName, cfgDir, "resCfg.js"));
     }
@@ -45,7 +45,6 @@ function createTemp(){
     jsToMergeArr.push(path.join(projDir, cfgDir, "res.js"));
     jsToMergeArr.push(path.join(ccDir, "core", cfgDir, "jsRes.js"));
     jsToMergeArr.push(path.join(ccDir, "core", cfgDir, "resCfg.js"));
-    var dependencies = cocosInfo.dependencies;
     mergeDependencies(modulesDir, core4cc.getDependencies(cocosInfo.dependencies), jsToMergeArr);
 
     jsToMergeArr.push(path.join(projDir, cfgDir, "jsRes.js"));
